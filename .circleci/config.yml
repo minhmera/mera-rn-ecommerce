@@ -1,0 +1,44 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.3.0
+
+jobs:
+  setup-environment:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  lint:
+    executor: node/default
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run linter
+          command: npm run lint
+
+  test:
+    executor: node/default
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run tests
+          command: npm run test:ci
+
+workflows:
+  lint-and-test:
+    jobs:
+      - setup-environment
+      - lint:
+          requires:
+            - setup-environment
+      - test:
+          requires:
+            - setup-environment
