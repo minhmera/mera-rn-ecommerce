@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import React from 'react';
+import { React, useContext } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { useDispatch, connect, useSelector } from 'react-redux';
 import { logout } from '@/actions/UserActions';
@@ -13,11 +13,12 @@ import { strings } from '@/localization';
 import { styles } from '@/screens/Profile/Profile.styles';
 import { typography } from '@/theme';
 import { getCounter } from '@/selectors/CounterSelectors';
+import { UserContext } from '@/context/UserContext';
 
 export function Profile() {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-
+  const contextObjc = useContext(UserContext);
   const counter = useSelector(getCounter);
 
   const logoutUser = () => {
@@ -37,6 +38,7 @@ export function Profile() {
   };
 
   console.log('counter ==>  ', counter.count);
+  console.log('contextObjc ==>  ', contextObjc);
 
   return (
     <View style={styles.container}>
