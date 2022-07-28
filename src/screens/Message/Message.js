@@ -1,7 +1,7 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, FlatList, ActivityIndicator, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 //import { FlatList } from 'react-native-bidirectional-infinite-scroll';
 import { queryMoreMessages } from './mockMessage';
 import { MessageBubble } from './MessageBubble';
@@ -9,6 +9,7 @@ import { logout } from '@/actions/UserActions';
 import { Button } from '@/components';
 import { strings } from '@/localization';
 import { styles } from '@/screens/Message/Message.style';
+import { getCounter } from '@/selectors/CounterSelectors';
 
 export function Message() {
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,8 @@ export function Message() {
   const [offset, setOffset] = useState(1);
   const [isListEnd, setIsListEnd] = useState(false);
   useEffect(() => getData(), []);
+  const counter = useSelector(getCounter);
+  console.log('counter ==>  nè  ', counter);
   const getData = () => {
     console.log(offset);
     if (!loading && !isListEnd) {
