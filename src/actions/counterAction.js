@@ -1,5 +1,5 @@
 import { TYPES } from '@/actions/UserActions';
-// Branch dev đây nha
+// Branch dev đây nha - sau khi merge
 export const COUNT_TYPES = {
   INCREASE: 'INCREASE',
   DECREASE: 'DECREASE',
